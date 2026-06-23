@@ -10,6 +10,10 @@
             padding: 0;
             background: #000;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         canvas {
             display: block;
@@ -38,14 +42,18 @@
         }
 
         function unlockAudio() {
-            console.log('Audio unlocked');
+            console.log('🔊 Audio unlocked');
         }
 
+        // Load game
         window.addEventListener('load', startGame);
+
+        // for audio
         document.addEventListener('click', unlockAudio, { once: true });
         document.addEventListener('touchstart', unlockAudio, { once: true });
+        document.addEventListener('keydown', unlockAudio, { once: true });
 
-        // Fallback: auto-click after 100ms
+        // Fallback auto-click
         setTimeout(() => document.body.click(), 100);
     </script>
 </body>
