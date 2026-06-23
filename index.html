@@ -10,17 +10,10 @@
             padding: 0;
             background: #000;
             overflow: hidden;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        #gm4html5_div_id {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
+            min-height: 100vh;
         }
         canvas {
             display: block;
@@ -32,6 +25,7 @@
             touch-action: none;
             image-rendering: optimizeSpeed;
             -webkit-interpolation-mode: nearest-neighbor;
+            aspect-ratio: 960 / 540;
         }
     </style>
 </head>
@@ -44,11 +38,26 @@
 
     <script src="html5game/GenericFishing.js"></script>
     <script>
-        window.onload = GameMaker_Init;
-        document.addEventListener('click', function(){}, { once: true });
-        document.addEventListener('touchstart', function(){}, { once: true });
-        document.addEventListener('keydown', function(){}, { once: true });
-        setTimeout(function(){ document.body.click(); }, 100);
+        function startGame() {
+            if (typeof GameMaker_Init === 'function') {
+                GameMaker_Init();
+            }
+        }
+
+        function unlockAudio() {
+            console.log('Audio unlocked');
+        }
+
+        // Start game on load
+        window.addEventListener('load', startGame);
+
+        // Unlock audio on any user interaction
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+        document.addEventListener('keydown', unlockAudio, { once: true });
+
+        // Fallback: auto-click after 100ms
+        setTimeout(() => document.body.click(), 100);
     </script>
 </body>
 </html>
